@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const User = require('./users')
+const config = require('../config')
 
 var authTokenSchema = mongoose.Schema({
     userId : {
@@ -11,4 +14,26 @@ var authTokenSchema = mongoose.Schema({
     }
 })
 
+
+authTokenSchema.statics.verifyToken = function(authToken){
+    var Tokens = this
+    let decoded;
+
+    try{
+        decoded = jwt.verify(authToken,config.secrete_key)
+    }
+    catch(err){
+        console.log("Error occurred when verifying token")
+        return err;
+    }
+    return Tokens.findOne({authToken:authToken}).then((token)=>{
+        return {
+            userId : token.userId,decoded
+        }
+        // return User.find({_id : result.userId,username : decoded.username})
+        //     .then((user) => {
+        //         return user;
+        //     })
+    })
+}
 module.exports = mongoose.model('AuthToken',authTokenSchema)
