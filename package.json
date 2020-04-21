@@ -4,12 +4,24 @@
   "description": "A translator from french",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "json-web-token": "^3.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.6",
-    "mongoose": "^5.9.9"
+    "mongoose": "^5.9.9",
+    "shortid": "^2.2.15"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }
