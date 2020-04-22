@@ -1,11 +1,29 @@
 const translate = require('translate')
 const fs = require('fs')
 const config = require('../config')
+const User = require('../models/users')
 
 
 var translateFunc = function(req,res,next){
     console.log(req.file)
     var sentence = req.file.buffer.toString()
+    // console.log(req.user)
+    User.findOne({username : req.user.username}).then((user) => {
+        // console.log('user:'+ user)
+        if(user.passcode == req.body.passcode ){
+            return
+        }
+        res.status(403).send({
+            message : "wrong passcode",
+            status : 403
+        })
+    }).catch((err) => {
+        res.status(501).send({
+            message : "could not read passcode",
+            status : 501
+        })
+        console.log('an error occurred with passcode!: ' + err)
+    })
     console.log(sentence)
     translate(sentence,{to:'fr',engine: 'yandex',key : config.api_key }).then((text)=> {
         console.log(text)

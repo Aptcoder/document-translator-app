@@ -14,7 +14,7 @@ module.exports = function(req,res,next){
     //static method  for verifying token
     AuthToken.verifyToken(authToken).then((result) => {
         console.log('user authenticated!')
-        User.find({_id : result.userId,username : result.decoded.username})
+        User.findOne({_id : result.userId,username : result.decoded.username})
             .then((user) => {
                 req.user = user;
                 next();
