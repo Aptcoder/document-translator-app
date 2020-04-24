@@ -9,10 +9,15 @@ var uploads = multer();
 
 router.post('/',auth,uploads.single('upload'),controller,(req,res,next) => {
     console.log('complete')
-    res.status(200).send({
-        message : "authentification sucessful" ,
-        usermame : req.user.username
+    res.status(200).download('translation.txt','translation.txt',(err) => {
+        if(err){
+            res.send({
+                message : "could not complete download"
+            })
+        }
     })
 })
 
 module.exports = router
+
+//TODO - Write tests

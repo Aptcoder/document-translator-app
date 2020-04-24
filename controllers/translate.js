@@ -5,7 +5,7 @@ const User = require('../models/users')
 
 
 var translateFunc = function(req,res,next){
-    console.log(req.file)
+    // console.log(req.file)
     var sentence = req.file.buffer.toString()
     // console.log(req.user)
     User.findOne({username : req.user.username}).then((user) => {
@@ -22,21 +22,21 @@ var translateFunc = function(req,res,next){
             message : "could not read passcode",
             status : 501
         })
-        console.log('an error occurred with passcode!: ' + err)
+        // console.log('an error occurred with passcode!: ' + err)
     })
-    console.log(sentence)
+    // console.log(sentence) 
     translate(sentence,{to:'fr',engine: 'yandex',key : config.api_key }).then((text)=> {
         console.log(text)
         fs.writeFile('translation.txt',text,(err) => {
             if(err) {
-                console.log('could not write file:' + err)
+                // console.log('could not write file:' + err)
                 throw err
             }
             console.log('file has been saved')
             next();
         })
     }).catch((err) => {
-        console.log("an error occured while translating:" + err)
+        // console.log("an error occured while translating:" + err)
         res.status(501).send({
             message : "could not complete translation",
             status : 501

@@ -24,16 +24,12 @@ authTokenSchema.statics.verifyToken = function(authToken){
     }
     catch(err){
         console.log("Error occurred when verifying token")
-        return err;
+        return Promise.reject(err);
     }
     return Tokens.findOne({authToken:authToken}).then((token)=>{
         return {
             userId : token.userId,decoded
         }
-        // return User.find({_id : result.userId,username : decoded.username})
-        //     .then((user) => {
-        //         return user;
-        //     })
     })
 }
 module.exports = mongoose.model('AuthToken',authTokenSchema)

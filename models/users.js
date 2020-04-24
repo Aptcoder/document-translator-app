@@ -53,4 +53,9 @@ userSchema.methods.generateToken = function (){
     })
 }
 
+userSchema.statics.getPasscode = function(){
+    User
+}
+
+
 module.exports = mongoose.model('User',userSchema)

@@ -13,9 +13,9 @@ var createUser = function(req,res,next){
     })
     //save new User
     newUser.save().then((user) => {
-        console.log('user successfully created :' + user.username);
+        // console.log('user successfully created :' + user.username);
         user.generateToken().then((token) => {
-            console.log("token :" + token)
+            // console.log("token :" + token)
             res.set('x-auth',token.authToken).status(200).send({
                 message : "User Created",
                 username : user.username,

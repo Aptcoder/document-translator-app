@@ -7,9 +7,10 @@ const bodyParser = require('body-parser');
 
 //personal module imports 
 var User = require('./models/users')
-var environment = process.env.NODE_ENV
+// console.log(process.env.NODE_ENV) 
+var environment = process.env.NODE_ENV || 'development'
 //TODO : make sure there is a defualt for environment 
-const stage = require('./config')[environment];
+const stage = require('./config')[environment]; 
 
 //routers 
 var userRouter = require('./routes/user')
@@ -20,23 +21,14 @@ var app = express();
 //change mongoose promise library to global promise library 
 mongoose.Promise = global.Promise;
 //create a mongoose connection
-mongoose.connect(process.env.MONGO_URL,{useNewUrlParser : true,useUnifiedTopology: true})
+mongoose.connect(stage.db,{useNewUrlParser : true,useUnifiedTopology: true})
     .catch(err => console.log("Error connecting to db :" + err))
 
 //use body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-// var newUser = new User({
-//     username : "samuel",
-//     password : "samuel"
-// })
 
-// newUser.save().then((user) => {
-//     console.log(user)
-// }).catch((err) => {
-//     console.log('could not create users')
-// })
 
 //user routes handler
 app.use('/users',userRouter)
@@ -50,3 +42,5 @@ app.get('/',(req,res) => {
 app.listen(stage.port,()=>{
     console.log(`node listening in port ${stage.port}`)
 })
+
+module.exports.app = app;
