@@ -4,12 +4,13 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
+const hbs = require('express-handlebars')
 
 //personal module imports 
 var User = require('./models/users')
 // console.log(process.env.NODE_ENV) 
 var environment = process.env.NODE_ENV || 'development'
-//TODO : make sure there is a defualt for environment 
+
 const stage = require('./config')[environment]; 
 
 //routers 
@@ -28,7 +29,14 @@ mongoose.connect(stage.db,{useNewUrlParser : true,useUnifiedTopology: true})
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+app.set('view engine','hbs')
 
+app.engine('hbs',hbs({
+    extname : 'hbs',
+    layoutsDir : __dirname + '/views/layouts',
+    defaultLayout : 'main'
+}))
+app.use(express.static('public'));
 
 //user routes handler
 app.use('/users',userRouter)
@@ -37,7 +45,7 @@ app.use('/users',userRouter)
 app.use('/translate',translateRouter)
 
 app.get('/',(req,res) => {
-    res.send('website is being built')
+    res.render('index',{})
 })
 app.listen(stage.port,()=>{
     console.log(`node listening in port ${stage.port}`)

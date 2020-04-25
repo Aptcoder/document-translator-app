@@ -1,0 +1,148 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --color-pry : #5CDB95;
+}
+.form-box {
+    background-color: var(--color-pry);
+    padding: 1.5rem;
+    margin: auto;
+    width: 40vw;
+    border-radius: 5px;
+}
+
+form {
+    background-color: white;
+    border: 2px  var(--color-pry) solid;
+    border-radius: 4px;
+    padding: 1.3rem;
+}
+.form-element{
+    margin-top: 1.3rem;
+}
+
+.form-element:first-of-type{
+    margin-top: 0;
+}
+
+.form-element label {
+    display: block;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: small;
+    margin-bottom: 0.3rem;
+}
+.form-element input[type="file"]{
+    display: none;
+}
+
+.form-element input{
+    display: block;
+    width: 100%;
+    border: 1.5px var(--color-pry) solid ;
+    height: 2rem;
+    border-radius: 4px;
+    padding: 0.6rem;
+}
+
+.form-element label::after{
+    content: "*";
+    color: red;
+
+}
+.form-element label[for="upload"]{
+    border: 1.5px var(--color-pry) solid ;
+    height: 2rem;
+    text-align: center;
+    padding: 0.2rem;
+    border-radius: 4px;
+}
+
+.form-element label[for="upload"]::after{
+    content: "";
+}
+
+
+.form-element input:focus,
+.form-element input:active{
+    outline: none;
+}
+
+
+
+.form-element .btn-pry{
+    color: white;
+    background-color: var(--color-pry);
+    border: 1px var(--color-pry) solid;
+    font-family: sans-serif;
+    /* width: 1.2rem; */
+    font-weight: 600;
+    padding: 0.7rem;
+}
+
+.form-element .btn-pry:active,
+.form-element .btn-pry:hover{
+    color: var(--color-pry);
+    background-color: white;
+    /* border: 1px solid var(--color-pry) ; */
+    /* width: 1.2rem; */
+    padding: 0.7rem;
+}
+
+
+.info{
+    font-family:'Manrope', sans-serif; 
+    text-align: center;
+}
+
+
+@media (max-width : 600px){
+    .form-box{
+        width: 90vw;
+    }
+    :root{
+        font-size: 15px;
+    }
+}
+
+.login-box{
+    margin:auto;
+    margin-top:1.2rem;
+    font-family: 'Manrope', sans-serif;
+    width: 30vw;
+    text-align: center;
+}
+/* .login-box a{
+    cursor: pointer;
+} */
+.login-box #login{
+    font-size: 1.0rem;
+    color: var(--color-pry);
+    cursor: pointer;
+}
+
+.login-box #login:active,
+.login-box #login:hover{
+    color: #379683;
+
+}
+
+.login-box a:hover,
+.login-box a:active,
+.login-box a:visited{
+    border-bottom: none;
+    color:#379683 ;
+    text-decoration: none !important;
+}
+
+.login-box .link:hover,
+.login-box .link:active,
+.login-box .link:active{
+    border-bottom: none;
+    color:#379683 ;
+    text-decoration: none !important;
+}

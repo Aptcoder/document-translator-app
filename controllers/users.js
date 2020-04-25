@@ -5,6 +5,7 @@ var bcrypt = require('bcrypt')
 //controller function to create user
 var createUser = function(req,res,next){
     var username = req.body.username;
+    console.log(username,password)
     var password = req.body.password
 //create new user
     var newUser = new User({
@@ -19,23 +20,26 @@ var createUser = function(req,res,next){
             res.set('x-auth',token.authToken).status(200).send({
                 message : "User Created",
                 username : user.username,
-                passcode : user.passcode
+                passcode : user.passcode,
+                success : true,
+                status : 200
             })
         })
         .catch((err) => {
             console.log('Error creating token' + err)
             res.status(500).send({
                 status : 500,
-                ErrorMessage : "something went Wrong"
+                message : "something went Wrong",
+                success : false
             })
         })
     })
     .catch(err => {
         console.log('Error creating user :')
         res.status(401).send({
-            ErrorMessage : "Username already exists" ,
-            Error : err ,
-            status : 401
+            message : "Username already exists" ,
+            status : 401,
+            success : false
         })
     })
 }
@@ -57,6 +61,7 @@ var userLogin = function(req,res,next){
                 message : "wrong password or username",
                 status : 401
             })
+            return ;
             }
             user.generateToken().then((token) => {
                 console.log("token :" + token)
@@ -82,6 +87,9 @@ var userLogin = function(req,res,next){
             })
     })
 }
+
+//TODO - write controller to get user with authentication;
+//TODO2 - 
 module.exports = {
     createUser ,
     userLogin
