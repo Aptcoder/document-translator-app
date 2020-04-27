@@ -5,7 +5,7 @@ var router = express.Router();
 
 
 var uploads = multer();
-router.post('/newuser',uploads.none(),controller.createUser)
+router.post('/signup',uploads.none(),controller.createUser)
 
 router.post('/login',uploads.none(),controller.userLogin)
 

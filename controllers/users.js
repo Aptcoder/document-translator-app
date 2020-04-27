@@ -21,14 +21,12 @@ var createUser = function(req,res,next){
                 message : "User Created",
                 username : user.username,
                 passcode : user.passcode,
-                success : true,
-                status : 200
+                success : true
             })
         })
         .catch((err) => {
             console.log('Error creating token' + err)
             res.status(500).send({
-                status : 500,
                 message : "something went Wrong",
                 success : false
             })
@@ -38,7 +36,6 @@ var createUser = function(req,res,next){
         console.log('Error creating user :')
         res.status(401).send({
             message : "Username already exists" ,
-            status : 401,
             success : false
         })
     })
@@ -53,13 +50,14 @@ var userLogin = function(req,res,next){
         bcrypt.compare(password,user.password,(err,result) => {
             if(err) {
                 return res.status(500).send({
-                    message : "something went wrong"
+                    message : "something went wrong",
+                    success: false
                 })
             }
             if(!result){
                res.status(401).send({
                 message : "wrong password or username",
-                status : 401
+                success: false
             })
             return ;
             }
@@ -67,15 +65,15 @@ var userLogin = function(req,res,next){
                 console.log("token :" + token)
                 res.set('x-auth',token.authToken).status(200).send({
                     username ,
-                    status : 200,
+                    success: true,
                     message : "login successful"
                 })
             })
             .catch((err) => {
                 console.log('Error creating token' + err)
                 res.status(500).send({
-                    status : 500,
-                    ErrorMessage : "something went Wrong"
+                    success: false,
+                    message : "something went Wrong"
                 })
             })
         })

@@ -29,7 +29,7 @@ describe('POST /users/newuser',() => {
     }
     it('should create a new user',(done) => {
         request(app)
-            .post('/users/newuser')
+            .post('/users/signup')
             .send(user)
             .expect(200)
             .expect((res) => {
@@ -48,14 +48,14 @@ describe('POST /users/newuser',() => {
 
     it('should not create user when username is taken',(done) => {
         request(app)
-            .post('/users/newuser')
+            .post('/users/signup')
             .send({
                 username: "milz",
                 password : "no function"
             })
             .expect(401)
             .expect((res) => {
-                expect(res.body.ErrorMessage).to.equal("Username already exists")
+                expect(res.body.message).to.equal("Username already exists")
             })
             .end(done);
     })

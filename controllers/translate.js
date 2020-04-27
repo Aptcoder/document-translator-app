@@ -15,12 +15,12 @@ var translateFunc = function(req,res,next){
         }
         res.status(403).send({
             message : "wrong passcode",
-            status : 403
+            success : false
         })
     }).catch((err) => {
-        res.status(501).send({
-            message : "could not read passcode",
-            status : 501
+        res.status(500).send({
+            message : "something went wrong",
+            success : false
         })
         // console.log('an error occurred with passcode!: ' + err)
     })
@@ -37,9 +37,9 @@ var translateFunc = function(req,res,next){
         })
     }).catch((err) => {
         // console.log("an error occured while translating:" + err)
-        res.status(501).send({
-            message : "could not complete translation",
-            status : 501
+        res.status(500).send({
+            message : "something went wrong",
+            success: false
         })
     })
 }
