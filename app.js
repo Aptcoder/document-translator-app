@@ -5,6 +5,7 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('express-handlebars')
+const cookieParser = require('cookie-parser')
 
 //personal module imports 
 var User = require('./models/users')
@@ -28,6 +29,7 @@ mongoose.connect(stage.db,{useNewUrlParser : true,useUnifiedTopology: true})
 //use body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(cookieParser())
 
 app.set('view engine','hbs')
 

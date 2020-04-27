@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt')
 //controller function to create user
 var createUser = function(req,res,next){
     var username = req.body.username;
-    console.log(username,password)
+    console.log(username)
     var password = req.body.password
 //create new user
     var newUser = new User({
@@ -17,15 +17,22 @@ var createUser = function(req,res,next){
         // console.log('user successfully created :' + user.username);
         user.generateToken().then((token) => {
             // console.log("token :" + token)
-            res.set('x-auth',token.authToken).status(200).send({
-                message : "User Created",
-                username : user.username,
-                passcode : user.passcode,
-                success : true
+            res.cookie('token',token.authToken,{
+                maxAge : 86400000,
+                httpOnly: true,
+                secure : false
             })
+
+            res.status(301).redirect('/translate')
+            // send({
+            //     message : "User Created",
+            //     username : user.username,
+            //     passcode : user.passcode,
+            //     success : true
+            // })
         })
         .catch((err) => {
-            console.log('Error creating token' + err)
+            console.error('Error creating token' + err)
             res.status(500).send({
                 message : "something went Wrong",
                 success : false
@@ -63,11 +70,19 @@ var userLogin = function(req,res,next){
             }
             user.generateToken().then((token) => {
                 console.log("token :" + token)
-                res.set('x-auth',token.authToken).status(200).send({
-                    username ,
-                    success: true,
-                    message : "login successful"
+
+                res.cookie('token',token.authToken,{
+                    maxAge : 86400000,
+                    httpOnly: true,
+                    secure : false
                 })
+
+                res.status(301).redirect('/translate')
+                // send({
+                //     username ,
+                //     success: true,
+                //     message : "login successful"
+                // })
             })
             .catch((err) => {
                 console.log('Error creating token' + err)

@@ -9,7 +9,8 @@ var translateFunc = function(req,res,next){
     var sentence = req.file.buffer.toString()
     // console.log(req.user)
     User.findOne({username : req.user.username}).then((user) => {
-        // console.log('user:'+ user)
+        console.log('user:'+ user)
+        console.log(req.body.passcode)
         if(user.passcode == req.body.passcode ){
             return
         }
@@ -18,11 +19,12 @@ var translateFunc = function(req,res,next){
             success : false
         })
     }).catch((err) => {
+        console.log('an error occurred with passcode!: ' + err)
         res.status(500).send({
             message : "something went wrong",
             success : false
         })
-        // console.log('an error occurred with passcode!: ' + err)
+       
     })
     // console.log(sentence) 
     translate(sentence,{to:'fr',engine: 'yandex',key : config.api_key }).then((text)=> {
@@ -36,7 +38,7 @@ var translateFunc = function(req,res,next){
             next();
         })
     }).catch((err) => {
-        // console.log("an error occured while translating:" + err)
+        console.log("an error occured while translating:" + err)
         res.status(500).send({
             message : "something went wrong",
             success: false

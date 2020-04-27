@@ -18,6 +18,12 @@ router.post('/',auth,uploads.single('upload'),controller,(req,res,next) => {
     })
 })
 
+
+router.get('/',auth,(req,res) => {
+    var user = req.user
+    res.render('translate',{username : user.username,passcode : user.passcode})
+})
+
 module.exports = router
 
 //TODO - Write tests

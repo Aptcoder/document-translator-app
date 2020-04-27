@@ -1,0 +1,29 @@
+<div style="text-align: center; margin:2rem 0;">
+           <h2> Hello {{username}},Your passcode is {{passcode}} :</h2> 
+        </div>
+        <div class="form-box">
+        <form action="/translate" method="POST" enctype="multipart/form-data">
+            <div class="form-element">
+                <label for="passcode">
+                    passcode:
+                </label>
+                <input name="passcode" type="text" required>
+            </div>
+            <div class="form-element">
+                <label for="upload">
+                    Upload text document
+                    <input name="upload" id="upload" type="file" size="100"required>
+                </label>
+                
+            </div>
+            <div class="form-element">
+                <button class="btn-pry">
+                    Translate
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="info">
+       <p>Once file has been uploaded,go on and translate.</p> 
+       <p>A translated document will be downloaded</p>
+    </div>
