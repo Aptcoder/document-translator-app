@@ -38,6 +38,15 @@ app.engine('hbs',hbs({
 }))
 app.use(express.static('public'));
 
+
+var handleError = function(err,req,res,next){
+    if(typeof err == 'string'){
+        res.send("Oops,something went wrong")
+    }
+    res.status(500).send("something is wrong from our side,try login again")
+}
+//error handler middleware
+app.use(handleError)
 //user routes handler
 app.use('/users',userRouter)
 
